@@ -1,5 +1,5 @@
 import os
-from datetime import time
+from datetime import time, datetime
 
 from dotenv import load_dotenv
 from fastapi import FastAPI, Request, HTTPException
@@ -25,7 +25,7 @@ app.add_middleware(
 async def add_user(request: Request):
     try:
         data = await request.json()
-        print(f"\n{time()}\n")
+        print(f"\n{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
         print(f"(add_user) Received Data: {data}")
 
         # Виклик бізнес-логіки
@@ -47,7 +47,7 @@ async def add_user(request: Request):
 async def check_user(request: Request):
     try:
         data = await request.json()
-        print(f"\n{time()}\n")
+        print(f"\n{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
         print(f"(check_user) Received Data: {data}")
 
         # Виклик бізнес-логіки
