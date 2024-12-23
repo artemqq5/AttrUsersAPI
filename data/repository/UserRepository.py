@@ -3,13 +3,13 @@ from data.DataBaseHelp import DataBaseHelp
 
 class UserRepository(DataBaseHelp):
 
-    def insert_user(self, user_ip, campain_id, pixel, fbclid, bundle, sub1, sub2, sub3, sub4, sub5, sub6, sub7, sub8):
+    def insert_user(self, user_ip, campaign_client_id, pixel, fbclid, bundle, sub1, sub2, sub3, sub4, sub5, sub6, sub7, sub8):
         query = ("INSERT INTO `users` ("
-                 "`user_ip`, `campain_client_id`, `pixel`, `fbclid`, `bundle`, "
+                 "`user_ip`, `campaign_client_id`, `pixel`, `fbclid`, `bundle`, "
                  "`sub1`, `sub2`, `sub3`, `sub4`, `sub5`, `sub6`, `sub7`, `sub8`) "
                  "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);")
         return self._insert(
-            query, (user_ip, campain_id, pixel, fbclid, bundle, sub1, sub2, sub3, sub4, sub5, sub6, sub7, sub8)
+            query, (user_ip, campaign_client_id, pixel, fbclid, bundle, sub1, sub2, sub3, sub4, sub5, sub6, sub7, sub8)
         )
 
     def select_ip(self, user_ip, bundle):

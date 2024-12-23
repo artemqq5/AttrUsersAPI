@@ -13,13 +13,13 @@ class UserService:
     def add_user(data):
         """Бізнес-логіка для додавання користувача"""
         required_fields = [
-            'user_ip', 'campain_client_id', 'pixel', 'fbclid', 'bundle',
+            'user_ip', 'campaign_client_id', 'pixel', 'fbclid', 'bundle',
             'sub1', 'sub2', 'sub3', 'sub4', 'sub5', 'sub6', 'sub7', 'sub8'
         ]
         UserService.validate_fields(data, required_fields)
         return UserRepository().insert_user(
             data['user_ip'],
-            data['campain_client_id'],
+            data['campaign_client_id'],
             data['pixel'],
             data['fbclid'],
             data['bundle'],
