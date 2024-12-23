@@ -20,7 +20,6 @@ app.add_middleware(
 )
 
 
-# Додати користувача
 @app.post("/v1/users/adduser")
 async def add_user(request: Request):
     try:
@@ -34,12 +33,14 @@ async def add_user(request: Request):
             return JSONResponse(status_code=200, content={"status": "success", "message": "User added"})
         else:
             return JSONResponse(status_code=400, content={"status": "error", "message": "Failed to add user"})
+    except ValueError as ve:
+        print(f"Validation error in add_user: {ve}")
+        return JSONResponse(status_code=400, content={"status": "error", "message": str(ve)})
     except Exception as e:
         print(f"Error in add_user: {e}")
         return JSONResponse(status_code=500, content={"status": "error", "message": "Internal server error"})
 
 
-# Перевірити користувача
 @app.post("/v1/users/checkuser")
 async def check_user(request: Request):
     try:
@@ -52,6 +53,9 @@ async def check_user(request: Request):
             return result
 
         raise HTTPException(status_code=404, detail="User not found")
+    except ValueError as ve:
+        print(f"Validation error in check_user: {ve}")
+        return JSONResponse(status_code=400, content={"status": "error", "message": str(ve)})
     except Exception as e:
         print(f"Error in check_user: {e}")
         return JSONResponse(status_code=500, content={"status": "error", "message": "Internal server error"})

@@ -3,18 +3,20 @@ from data.repository.UserRepository import UserRepository
 
 class UserService:
     @staticmethod
+    def validate_fields(data, required_fields):
+        """Перевірка наявності обов'язкових полів."""
+        missing_fields = [field for field in required_fields if field not in data]
+        if missing_fields:
+            raise ValueError(f"Missing required fields: {', '.join(missing_fields)}")
+
+    @staticmethod
     def add_user(data):
         """Бізнес-логіка для додавання користувача"""
         required_fields = [
             'user_ip', 'campain_client_id', 'pixel', 'fbclid', 'bundle',
             'sub1', 'sub2', 'sub3', 'sub4', 'sub5', 'sub6', 'sub7', 'sub8'
         ]
-
-        # Перевірка наявності обов'язкових полів
-        for field in required_fields:
-            if field not in data:
-                raise ValueError(f"Missing required field: {field}")
-
+        UserService.validate_fields(data, required_fields)
         return UserRepository().insert_user(
             data['user_ip'],
             data['campain_client_id'],
@@ -35,11 +37,7 @@ class UserService:
     def check_user(data):
         """Бізнес-логіка для перевірки користувача"""
         required_fields = ['user_ip', 'bundle']
-
-        # Перевірка наявності обов'язкових полів
-        for field in required_fields:
-            if field not in data:
-                raise ValueError(f"Missing required field: {field}")
+        UserService.validate_fields(data, required_fields)
 
         search_by_ip_result = UserRepository().select_ip(data['user_ip'], data['bundle'])
         if search_by_ip_result:
@@ -59,4 +57,4 @@ class UserService:
                 print(f"Secondary search by IP last 5 minutes: {result}")
                 return {**result}
 
-        return None
+        return
