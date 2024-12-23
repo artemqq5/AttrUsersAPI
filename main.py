@@ -21,7 +21,7 @@ app.add_middleware(
 
 
 # Додати користувача
-@app.post("/adduser")
+@app.post("/v1/users/adduser")
 async def add_user(request: Request):
     try:
         data = await request.json()
@@ -40,7 +40,7 @@ async def add_user(request: Request):
 
 
 # Перевірити користувача
-@app.post("/checkuser")
+@app.post("/v1/users/checkuser")
 async def check_user(request: Request):
     try:
         data = await request.json()
